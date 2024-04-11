@@ -1,21 +1,16 @@
 using System;
+using System.Collections.Generic;
 
 namespace BusinessManager
 {
-    public class Business
+    public class Business : Purchase
     {
         private int _profit;
-        private string _typeOfBusiness;
+private List<>
 
-        public  Business(int profit, string typeOfBusiness)
+        public Business(int profit, string nameOfBusiness, int cost) : base(cost, nameOfBusiness)
         {
             _profit = profit;
-            _typeOfBusiness = typeOfBusiness;
-        }
-
-        public void PrintBusinessInfo()
-        {
-            Console.WriteLine($"Название бизнеса - {_typeOfBusiness} прибыль - {_profit}");
         }
     }
 }

@@ -16,9 +16,25 @@ namespace BusinessManager
             AddMoney(money);
         }
 
-        public void OwnNewBusiness(Business newBusiness)
+        public void Buy(Purchase newPurchase)
         {
-            _ownedBusinesses.Add(newBusiness);
+            if (_wallet>newPurchase.Cost)
+            {
+                if (newPurchase is Business)
+                {
+                    _ownedBusinesses.Add((Business)newPurchase);
+                }
+                else
+                {
+                    //блок с вызовом улучшения бизнеса
+                }
+                Console.WriteLine("У вас новое приобретение - "+newPurchase.NameOfPurchase);
+            }
+            else
+            {
+                Console.WriteLine("Не хватает деньжат");
+            }
+
         }
 
         public void AddMoney(int money)
@@ -38,7 +54,15 @@ namespace BusinessManager
                 Console.WriteLine("Владеет предприятиями - ");
                 for (var i = 0; i < _ownedBusinesses.Count; i++)
                 {
-                    
+                    Console.Write(_ownedBusinesses[i].NameOfPurchase);
+                    if (i==_ownedBusinesses.Count-1)
+                    {
+                        Console.Write(" .");
+                    }
+                    else
+                    {
+                        Console.Write(" ,");
+                    }
                 }
             }
             
