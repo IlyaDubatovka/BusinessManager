@@ -6,8 +6,8 @@ namespace BusinessManager
     {
         static void Main(string[] args)
         {
-            Business business1 = new Business(1000, "Автомойка",20000);
-            Business business2 = new Business(1200, "Бургерная",12000);
+            GameManager gameManager = new();
+            gameManager.StartGame();
         }
     }
 }
