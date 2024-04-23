@@ -1,3 +1,5 @@
+using System;
+
 namespace BusinessManager
 {
     public abstract class Purchase
@@ -17,6 +19,11 @@ namespace BusinessManager
         {
             _cost = cost;
             _nameOfPurchase = nameOfPurchase;
+        }
+
+        public void ShowInfo()
+        {
+            Console.WriteLine($"\t{_nameOfPurchase}  - стоимость {_cost}");
         }
     }
 }

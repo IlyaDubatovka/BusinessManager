@@ -68,5 +68,13 @@ namespace BusinessManager
             
             
         }
+
+        public void ShowOwnedBusiness()
+        {
+            for (var i = 0; i < _ownedBusinesses.Count; i++)
+            {
+                Console.WriteLine($"{i+1} - {_ownedBusinesses[i].NameOfPurchase}");
+            }
+        }
     }
 }
