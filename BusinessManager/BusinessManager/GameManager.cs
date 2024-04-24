@@ -30,13 +30,14 @@ namespace BusinessManager
                 Console.WriteLine("4 - Выйти из игры");
                 Console.WriteLine();
                 Console.Write("Сделайте ваш выбор : ");
-                Console.WriteLine();
                 var inputStr = Console.ReadLine();
-                if (!int.TryParse(inputStr,out int input))
+                Console.WriteLine();
+                if (!int.TryParse(inputStr, out int input))
                 {
                     Console.WriteLine("Вы ввели некорректное значение, выберите число от 1 до 4");
                     continue;
                 }
+
                 switch (input)
                 {
                     case 1:
@@ -46,7 +47,7 @@ namespace BusinessManager
                         ShowUpgrades();
                         break;
                     case 3:
-                        ShowFreeBusineses();
+                        ShowBusinessPurchaseMenu();
                         break;
                     case 4:
                         Console.WriteLine("Игра завершена");
@@ -66,10 +67,14 @@ namespace BusinessManager
             //TODO сделать выбор бизнеса и апгрейд
         }
 
-        public void ShowFreeBusineses()
+        public void ShowBusinessPurchaseMenu()
         {
+            Console.WriteLine("Вы можете купить");
             _businessPool.ShowBusinessPool();
-            Console.WriteLine("Купили новый бизнес");
+            Console.Write("Вас что-то заинтересовало?\t");
+            var input = int.Parse(Console.ReadLine());
+            _businessMan.Buy(_businessPool.BusinessesPool[input - 1]);
+            _businessPool.RemoveBusinessFromPool(input - 1);
         }
     }
 }

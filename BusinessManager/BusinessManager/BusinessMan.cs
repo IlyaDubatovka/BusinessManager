@@ -29,10 +29,13 @@ namespace BusinessManager
                     //блок с вызовом улучшения бизнеса
                 }
                 Console.WriteLine("У вас новое приобретение - "+newPurchase.NameOfPurchase);
+                Console.WriteLine();
+                //TODO сделать списание средств
             }
             else
             {
                 Console.WriteLine("Не хватает деньжат");
+                Console.WriteLine();
             }
 
         }

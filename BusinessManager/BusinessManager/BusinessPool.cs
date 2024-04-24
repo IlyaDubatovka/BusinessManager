@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace BusinessManager
@@ -5,6 +6,7 @@ namespace BusinessManager
     public class BusinessPool
     {
         private List<Business> _businessPool = new List<Business>();
+        public List<Business> BusinessesPool { get=>_businessPool; }
 
         public BusinessPool()
         {
@@ -42,16 +44,20 @@ namespace BusinessManager
             _businessPool.Add(business4);
         }
 
-        public void RemoveBusinessFromPool()
+        public void RemoveBusinessFromPool(int index)
         {
+            _businessPool.RemoveAt(index);
         }
 
         public void ShowBusinessPool()
         {
             for (var i = 0; i < _businessPool.Count; i++)
             {
+                Console.Write($"{i + 1} - ");
                 _businessPool[i].ShowInfo();
             }
+
+            Console.WriteLine();
         }
     }
 }

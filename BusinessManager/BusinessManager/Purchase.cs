@@ -23,7 +23,7 @@ namespace BusinessManager
 
         public void ShowInfo()
         {
-            Console.WriteLine($"\t{_nameOfPurchase}  - стоимость {_cost}");
+            Console.WriteLine($"{_nameOfPurchase} - стоимость {_cost}");
         }
     }
 }
