@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 
 namespace BusinessManager
 {
@@ -10,8 +11,9 @@ namespace BusinessManager
         public GameManager()
         {
             _businessPool = new();
-            Console.WriteLine("Вы предприниматель и вас зовут");
+            Console.Write("Вы предприниматель и вас зовут ");
             _businessMan = new BusinessMan(Console.ReadLine());
+            Console.WriteLine();
         }
 
         public void StartGame()
@@ -44,7 +46,7 @@ namespace BusinessManager
                         _businessMan.ShowInfo();
                         break;
                     case 2:
-                        ShowUpgrades();
+                        ShowUpgradesMenu();
                         break;
                     case 3:
                         ShowBusinessPurchaseMenu();
@@ -60,10 +62,23 @@ namespace BusinessManager
             }
         }
 
-        public void ShowUpgrades()
+        public void ShowUpgradesMenu()
         {
-            Console.WriteLine("Выберите улучшаемый бизнес");
-            _businessMan.ShowOwnedBusiness();
+            if (_businessMan.OwnedBusiness.Count==0)
+            {
+                Console.WriteLine("Вы ещё ничего не приобрели. Купите сначала какой-то бизнес");
+                Console.WriteLine();
+            }
+            else
+            {
+                _businessMan.ShowOwnedBusiness();
+                Console.Write("Выберите улучшаемый бизнес ");
+                int inputBusinessIndex = int.Parse(Console.ReadLine());
+                _businessMan.OwnedBusiness[inputBusinessIndex-1].ShowPossibleUpgrsdes();
+                Console.Write("Что именно вы хотите улучшить? ");
+                int inputUpgradeIndex = int.Parse(Console.ReadLine());
+                _businessMan.OwnedBusiness[inputBusinessIndex-1].UpgradeBusiness(inputUpgradeIndex-1);
+            }
             //TODO сделать выбор бизнеса и апгрейд
         }
 
@@ -76,5 +91,6 @@ namespace BusinessManager
             _businessMan.Buy(_businessPool.BusinessesPool[input - 1]);
             _businessPool.RemoveBusinessFromPool(input - 1);
         }
+        //TODO выполнить проверку на валидность вводимых данных
     }
 }
