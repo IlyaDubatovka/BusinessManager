@@ -1,3 +1,5 @@
+using System;
+
 namespace BusinessManager
 {
     public class BusinessUpgrades: Purchase
@@ -13,6 +15,10 @@ namespace BusinessManager
         {
             _profit = profit;
         }
-        
+
+        public override void ShowInfo()
+        {
+            Console.WriteLine($"{_nameOfPurchase} | стоимость {_cost}$ | увеличит прибыль вашего бизнеса на {_profit}$");
+        }
     }
 }

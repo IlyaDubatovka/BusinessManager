@@ -4,8 +4,8 @@ namespace BusinessManager
 {
     public abstract class Purchase
     {
-        private int _cost;
-        private string _nameOfPurchase;
+        protected int _cost;
+        protected string _nameOfPurchase;
         public int Cost
         {
             get => _cost;
@@ -21,9 +21,9 @@ namespace BusinessManager
             _nameOfPurchase = nameOfPurchase;
         }
 
-        public void ShowInfo()
+        public virtual void ShowInfo()
         {
-            Console.WriteLine($"{_nameOfPurchase} - стоимость {_cost}");
+            Console.WriteLine($"{_nameOfPurchase} | стоимость {_cost}");
         }
     }
 }

@@ -74,12 +74,11 @@ namespace BusinessManager
                 _businessMan.ShowOwnedBusiness();
                 Console.Write("Выберите улучшаемый бизнес ");
                 int inputBusinessIndex = int.Parse(Console.ReadLine());
-                _businessMan.OwnedBusiness[inputBusinessIndex-1].ShowPossibleUpgrsdes();
+                _businessMan.OwnedBusiness[inputBusinessIndex-1].ShowPossibleUpgrades();
                 Console.Write("Что именно вы хотите улучшить? ");
                 int inputUpgradeIndex = int.Parse(Console.ReadLine());
                 _businessMan.OwnedBusiness[inputBusinessIndex-1].UpgradeBusiness(inputUpgradeIndex-1);
             }
-            //TODO сделать выбор бизнеса и апгрейд
         }
 
         public void ShowBusinessPurchaseMenu()

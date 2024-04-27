@@ -7,26 +7,29 @@ namespace BusinessManager
     {
         private int _profit;
         private List<BusinessUpgrades> _possibleUpgrades = new List<BusinessUpgrades>();
+        private int _timeRevenue;
 
         public Business(int profit, string nameOfBusiness, int cost) : base(cost, nameOfBusiness)
         {
             _profit = profit;
+            _timeRevenue = 10;
         }
 
         public void UpgradeBusiness(int index)
         {
             _profit += _possibleUpgrades[index].Cost;
             _possibleUpgrades.RemoveAt(index);
-            Console.WriteLine("Улучшение успешно выполнено");
+            Console.WriteLine("Улучшение успешно выполнено!");
             Console.WriteLine();
         }
 
-        public void ShowPossibleUpgrsdes()
+        public void ShowPossibleUpgrades()
         {
             for (var i = 0; i < _possibleUpgrades.Count; i++)
             {
-                Console.WriteLine($"{i=1} - {_possibleUpgrades[i].NameOfPurchase}");
-                //TODO не верно отображаются улучшения
+                Console.Write(i+1+". ");
+                _possibleUpgrades[i].ShowInfo();
+                //Console.WriteLine($"{i+1} - {_possibleUpgrades[i].NameOfPurchase}");
             }
 
             Console.WriteLine();
@@ -38,6 +41,11 @@ namespace BusinessManager
             {
                 _possibleUpgrades.Add(upgrade[i]);
             }
+        }
+
+        public override void ShowInfo()
+        {
+            Console.WriteLine($"{_nameOfPurchase} | стоимость {_cost}$ | приносит {_profit}$ каждые {_timeRevenue} секунд");
         }
     }
 }

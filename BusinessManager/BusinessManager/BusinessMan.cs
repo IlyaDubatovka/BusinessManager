@@ -18,7 +18,7 @@ namespace BusinessManager
         public BusinessMan(string name, int money = 10000)
         {
             _name = name;
-            AddMoney(money);
+            _wallet+=money;
         }
 
         public void Buy(Purchase newPurchase)
@@ -45,7 +45,7 @@ namespace BusinessManager
             }
         }
 
-        public void AddMoney(int money)
+        public void GetProfit(int money)
         {
             _wallet += money;
         }
