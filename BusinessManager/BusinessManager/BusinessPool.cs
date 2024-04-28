@@ -56,8 +56,6 @@ namespace BusinessManager
                 Console.Write($"{i + 1} - ");
                 _businessPool[i].ShowInfo();
             }
-
-            Console.WriteLine();
         }
     }
 }

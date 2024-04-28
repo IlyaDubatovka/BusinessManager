@@ -62,14 +62,14 @@ namespace BusinessManager
                 Console.WriteLine("Владеет предприятиями : ");
                 for (var i = 0; i < _ownedBusinesses.Count; i++)
                 {
-                    Console.Write(_ownedBusinesses[i].NameOfPurchase);
+                    Console.Write($"{_ownedBusinesses[i].NameOfPurchase} приносит {_ownedBusinesses[i].Profit}$ каждые {_ownedBusinesses[i].TimeRevenue} секунд");
                     if (i == _ownedBusinesses.Count - 1)
                     {
-                        Console.Write(".");
+                        Console.WriteLine(".");
                     }
                     else
                     {
-                        Console.Write(", ");
+                        Console.WriteLine("; ");
                     }
                 }
             }
