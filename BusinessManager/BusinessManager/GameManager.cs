@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace BusinessManager
 {
@@ -73,10 +75,20 @@ namespace BusinessManager
             else
             {
                 _businessMan.ShowOwnedBusiness();
+                Console.WriteLine($"{_businessMan.OwnedBusiness.Count+1} - Назад.");
+                Console.WriteLine();
                 Console.Write("Выберите улучшаемый бизнес ");
-                int inputBusinessIndex = int.Parse(Console.ReadLine());
-                _businessMan.OwnedBusiness[inputBusinessIndex - 1].ShowPossibleUpgrades();
-                if (_businessMan.OwnedBusiness[inputBusinessIndex - 1].PossibleUpgrades.Count == 0)
+                int inputBusinessIndex = Input(_businessMan.OwnedBusiness);
+                if (inputBusinessIndex==_businessMan.OwnedBusiness.Count+1)
+                {
+                    return;
+                }
+
+                Business currentBusiness = _businessMan.OwnedBusiness[inputBusinessIndex - 1];
+                currentBusiness.ShowPossibleUpgrades();
+                Console.WriteLine($"{currentBusiness.PossibleUpgrades.Count+1} - Назад.");
+                Console.WriteLine();
+                if (currentBusiness.PossibleUpgrades.Count == 0)
                 {
                     Console.WriteLine("Все улучшения уже выполнены!");
                     Console.WriteLine();
@@ -84,7 +96,11 @@ namespace BusinessManager
                 }
 
                 Console.Write("Что именно вы хотите улучшить? ");
-                int inputUpgradeIndex = int.Parse(Console.ReadLine());
+                int inputUpgradeIndex = Input(currentBusiness.PossibleUpgrades);
+                if (inputUpgradeIndex==currentBusiness.PossibleUpgrades.Count+1)
+                {
+                    return;
+                }
                 _businessMan.OwnedBusiness[inputBusinessIndex - 1].UpgradeBusiness(inputUpgradeIndex - 1);
             }
         }
@@ -105,20 +121,21 @@ namespace BusinessManager
             Console.Write("Вас что-то заинтересовало?\t");
             int input = Input(_businessPool.BusinessesPool);
             Console.WriteLine();
-            if (input==_businessPool.BusinessesPool.Count + 1)
+            if (input == _businessPool.BusinessesPool.Count + 1)
             {
                 return;
             }
+
             _businessMan.Buy(_businessPool.BusinessesPool[input - 1]);
             _businessPool.RemoveBusinessFromPool(input - 1);
         }
-        
-        public int Input<T>(List<T> list) where T:Purchase
+
+        public int Input<T>(List<T> list) where T : Purchase
         {
             var input = Console.ReadLine();
             if (int.TryParse(input, out int result))
             {
-                if ( result> list.Count + 1 || result < 0)
+                if (result > list.Count + 1 || result < 0)
                 {
                     Console.WriteLine("Введено не корректное значение");
                     return Input(list);

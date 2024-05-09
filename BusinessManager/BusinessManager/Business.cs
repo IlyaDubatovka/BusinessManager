@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Timers;
 
 namespace BusinessManager
 {
@@ -8,6 +9,8 @@ namespace BusinessManager
         private int _profit;
         private List<BusinessUpgrades> _possibleUpgrades = new List<BusinessUpgrades>();
         private int _timeRevenue;
+        private BusinessMan _owner;
+        private Timer _timer;
         public int Profit
         {
             get => _profit;
@@ -25,6 +28,7 @@ namespace BusinessManager
         {
             _profit = profit;
             _timeRevenue = 10;
+            _timer = new Timer(_timeRevenue*1000);
         }
 
         public void UpgradeBusiness(int index)
@@ -43,8 +47,6 @@ namespace BusinessManager
                 _possibleUpgrades[i].ShowInfo();
            
             }
-
-            Console.WriteLine();
         }
 
         public void AddToUpgradeList(params BusinessUpgrades[] upgrade)
@@ -59,5 +61,18 @@ namespace BusinessManager
         {
             Console.WriteLine($"{_nameOfPurchase} | стоимость {_cost}$ | приносит {_profit}$ каждые {_timeRevenue} секунд.");
         }
+
+        public void StartWorking(BusinessMan owner)
+        {
+            _owner = owner;
+            _timer.Start();
+            _timer.Elapsed += MakeProfit;
+        }
+
+        private void MakeProfit(object sender, ElapsedEventArgs e)
+        {
+            _owner.GetProfit(this);
+        }
+
     }
 }

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Timers;
 
 namespace BusinessManager
 {
@@ -25,9 +27,11 @@ namespace BusinessManager
         {
             if (_wallet > newPurchase.Cost)
             {
-                if (newPurchase is Business)
+                if (newPurchase is Business curentBusiness)
                 {
-                    _ownedBusinesses.Add((Business)newPurchase);
+                   _ownedBusinesses.Add((Business)newPurchase);
+                   curentBusiness.StartWorking(this);
+                   //curentBusiness.PurchaseCycleStartTime=DateTime.Now.Second;
                 }
                 else
                 {
@@ -45,9 +49,14 @@ namespace BusinessManager
             }
         }
 
-        public void GetProfit(int money)
+        public void GetProfit(Business business)//что-то надо тут придумать
         {
-            _wallet += money;
+
+            _wallet += business.Profit;
+            // Console.ForegroundColor = ConsoleColor.Cyan;
+            // Console.WriteLine($"Вы заработали с помощью {business.NameOfPurchase} {business.Profit}$");
+            // Console.ForegroundColor = ConsoleColor.Gray;
+
         }
 
         public void ShowInfo()
@@ -84,7 +93,6 @@ namespace BusinessManager
                 Console.WriteLine($"{i + 1} - {_ownedBusinesses[i].NameOfPurchase}");
             }
 
-            Console.WriteLine();
         }
     }
 }
