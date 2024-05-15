@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading;
 
 namespace BusinessManager
 {
@@ -32,14 +29,22 @@ namespace BusinessManager
                 Console.WriteLine("1 - Посмотреть информацию о себе");
                 Console.WriteLine("2 - Улучшить бизнес");
                 Console.WriteLine("3 - Приобрести новый бизнес");
-                Console.WriteLine("4 - Выйти из игры");
+                if (_businessMan.OnNotifications)
+                {
+                    Console.WriteLine("4 - Выключить оповещения доходов");
+                }
+                else
+                {
+                    Console.WriteLine("4 - Включить оповещения доходов");
+                }
+                Console.WriteLine("5 - Выйти из игры");
                 Console.WriteLine();
                 Console.Write("Сделайте ваш выбор : ");
                 var inputStr = Console.ReadLine();
                 Console.WriteLine();
                 if (!int.TryParse(inputStr, out int input))
                 {
-                    Console.WriteLine("Вы ввели некорректное значение, выберите число от 1 до 4");
+                    Console.WriteLine("Вы ввели некорректное значение, выберите число от 1 до 5");
                     continue;
                 }
 
@@ -55,6 +60,20 @@ namespace BusinessManager
                         ShowBusinessPurchaseMenu();
                         break;
                     case 4:
+                        if (_businessMan.OnNotifications)
+                        {
+                            _businessMan.OnNotifications = false;
+                            Console.WriteLine("Оповещения выключены");
+                            Console.WriteLine();
+                        }
+                        else
+                        {
+                            _businessMan.OnNotifications = true;
+                            Console.WriteLine("Оповещения включены");
+                            Console.WriteLine();
+                        }
+                        break;
+                    case 5:
                         Console.WriteLine("Игра завершена");
                         running = false;
                         return;
@@ -130,7 +149,7 @@ namespace BusinessManager
             _businessPool.RemoveBusinessFromPool(input - 1);
         }
 
-        public int Input<T>(List<T> list) where T : Purchase
+        private int Input<T>(List<T> list) where T : Purchase
         {
             var input = Console.ReadLine();
             if (int.TryParse(input, out int result))

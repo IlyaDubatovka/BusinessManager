@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Timers;
 
 namespace BusinessManager
 {
@@ -9,7 +7,7 @@ namespace BusinessManager
     {
         private string _name;
         private int _wallet;
-
+        public bool OnNotifications = false;
         private List<Business> _ownedBusinesses = new();
 
         public List<Business> OwnedBusiness
@@ -20,7 +18,7 @@ namespace BusinessManager
         public BusinessMan(string name, int money = 10000)
         {
             _name = name;
-            _wallet+=money;
+            _wallet += money;
         }
 
         public void Buy(Purchase newPurchase)
@@ -29,13 +27,8 @@ namespace BusinessManager
             {
                 if (newPurchase is Business curentBusiness)
                 {
-                   _ownedBusinesses.Add((Business)newPurchase);
-                   curentBusiness.StartWorking(this);
-                   //curentBusiness.PurchaseCycleStartTime=DateTime.Now.Second;
-                }
-                else
-                {
-                    //блок с вызовом улучшения бизнеса
+                    _ownedBusinesses.Add((Business)newPurchase);
+                    curentBusiness.StartWorking(this);
                 }
 
                 _wallet -= newPurchase.Cost;
@@ -49,14 +42,15 @@ namespace BusinessManager
             }
         }
 
-        public void GetProfit(Business business)//что-то надо тут придумать
+        public void GetProfit(Business business)
         {
-
             _wallet += business.Profit;
-            // Console.ForegroundColor = ConsoleColor.Cyan;
-            // Console.WriteLine($"Вы заработали с помощью {business.NameOfPurchase} {business.Profit}$");
-            // Console.ForegroundColor = ConsoleColor.Gray;
-
+            if (OnNotifications)
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"Вы заработали с помощью {business.NameOfPurchase} {business.Profit}$");
+                Console.ForegroundColor = ConsoleColor.Gray;
+            }
         }
 
         public void ShowInfo()
@@ -71,7 +65,8 @@ namespace BusinessManager
                 Console.WriteLine("Владеет предприятиями : ");
                 for (var i = 0; i < _ownedBusinesses.Count; i++)
                 {
-                    Console.Write($"{_ownedBusinesses[i].NameOfPurchase} приносит {_ownedBusinesses[i].Profit}$ каждые {_ownedBusinesses[i].TimeRevenue} секунд");
+                    Console.Write(
+                        $"{_ownedBusinesses[i].NameOfPurchase} приносит {_ownedBusinesses[i].Profit}$ каждые {_ownedBusinesses[i].TimeRevenue} секунд");
                     if (i == _ownedBusinesses.Count - 1)
                     {
                         Console.WriteLine(".");
@@ -92,7 +87,6 @@ namespace BusinessManager
             {
                 Console.WriteLine($"{i + 1} - {_ownedBusinesses[i].NameOfPurchase}");
             }
-
         }
     }
 }
